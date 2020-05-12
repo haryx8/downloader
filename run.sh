@@ -8,20 +8,16 @@ banner () {
     echo
 }
 
-if [ -z $1 ];then
-    echo "Please set url"
-    exit 1
-fi
+test () {
+    if [ $1 == "empty" ];then
+        echo $2
+        exit 0
+    fi
+}
 
-if [ -z $2 ];then
-    echo "Please set min value"
-    exit 2
-fi
-
-if [ -z $3 ];then
-    echo "Please set max value"
-    exit 3
-fi
+test ${1:-empty} "Please set url"
+test ${2:-empty} "Please set min value"
+test ${3:-empty} "Please set max value"
 
 banner "Start Download" 14
 
@@ -34,7 +30,7 @@ do
     if [ $res -eq 200 ];then
         ((x=x+1))
         echo "$x. Download file from $url"
-        #wget "${1/XX/$c}"
+        wget "${1/XX/$c}"
     fi
 done
 
